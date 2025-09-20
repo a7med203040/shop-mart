@@ -36,7 +36,7 @@ const [updatingId, setUpdatingId] = useState<null|string>(null);
 const [isClearing, setIsClearing] = useState<boolean>(false);
 
 
-typeof cartData?.data.products[0]?.product =='string'|| cartData == null && getCart();
+typeof cartData?.data?.products[0]?.product =='string'|| cartData == null && getCart();
 
 async function removeProduct(productId : string) {
   setRemovingId(productId)
@@ -106,7 +106,7 @@ setUpdatingId(null)
 }
 
   return <>
-  {isLoading ||typeof cartData?.data.products[0]?.product == 'string' ?  <Loading/> : cartData?.numOfCartItems! > 0? 
+  {isLoading ||typeof cartData?.data?.products[0]?.product == 'string' ?  <Loading/> : cartData?.numOfCartItems! > 0? 
   <div className="min-h-screen  font-sans  flex items-center justify-center gap-3 ">
     
         {/* Cart Items Section */}
