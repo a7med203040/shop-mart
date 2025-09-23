@@ -11,8 +11,9 @@ import { useRouter } from 'next/navigation'
 import AddToWishList from '../AddToWishList/AddToWishList'
 
 
+
 export default function AddToCard({productId}:{productId : string}) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const {setCartData } = useContext(CartContext);
   const session = useSession();
   const router = useRouter()
@@ -34,15 +35,15 @@ export default function AddToCard({productId}:{productId : string}) {
 
   return <>
   
-  <CardFooter className='flex gap-1'>
-    <Button disabled={isLoading} onClick={addProductToCart} className='bg-black text-white grow' variant="outline">
+  
+     <Button disabled={isLoading} onClick={addProductToCart} className='bg-black text-white grow' variant="outline">
       {isLoading ? <Loader2 className='animate-spin'/> : <ShoppingCartIcon/>}
-       Add to card</Button>
-
-    <AddToWishList productId = {productId} ></AddToWishList>
+       Add to card</Button> 
+     
+    
     
 
-  </CardFooter>
+ 
   </>
 
 }

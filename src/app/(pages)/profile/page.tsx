@@ -1,11 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 
-import img from '../../../../public/bagels.jpg'
+
 import WishList from '@/components/WishList/WishList';
+import { Input } from '@/components/ui/input';
 
 
 interface WishlistItem {
@@ -34,42 +35,49 @@ interface ProfilePageProps {
 export default function ProfilePage({ user, onEdit, onLogout, onRemoveFromWishlist,}: ProfilePageProps) {
 
 const session = useSession();
+// const [emailInput, setEmailInput] = useState('')
+const [passwordInput, setPasswordInput] = useState('')
+// const handleChangeEmail = (e)=>{
+// setEmailInput(e.target.value);
+// console.log(emailInput);
+
+// }
+
+const handleChangePassword = (e)=>{
+setPasswordInput(e.target.value);
+console.log(passwordInput);
+
+}
+async function resetPassword() {
+  const response = await fetch('https://ecommerce.routemisr.com/api/v1/auth/resetPassword',{
+    method : 'PUT',
+    body:JSON.stringify({
+      "email" : session.data?.user.email,
+     "newPassword" : "gmjgkjhk,khlk"
+    })
+  });
+  const data = await response.json();
+}
 
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center p-6">
       {/* Profile Card */}
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 mb-8">
-        <div className="flex flex-col items-center">
-          <div className="relative w-28 h-28 rounded-full overflow-hidden mb-4 border-4 border-blue-100 shadow">
-            <Image
-              src={img}
-              alt={''}
-              fill
-              className="object-cover"
-            />
-          </div>
-          <h1 className="text-2xl font-semibold">''</h1>
-          <p className="text-gray-500 text-sm">Shop-Mart Member</p>
-        </div>
+       
 
         <div className="mt-6 space-y-3">
-          <div className="flex justify-between border-b pb-2">
-            <span className="text-gray-600 font-medium">Email:</span>
-            <span className="text-gray-800">''</span>
-          </div>
-          <div className="flex justify-between border-b pb-2">
-            <span className="text-gray-600 font-medium">Phone:</span>
-            <span className="text-gray-800">''</span>
-          </div>
+         {/* <Input onBlur={handleChangeEmail} placeholder='Email'></Input> */}
+         <Input onBlur={handleChangePassword} type='password' placeholder='Enter new password'></Input>
+         
         </div>
 
         <div className="mt-8 flex gap-3">
           <button
-            onClick={onEdit}
+            onBlur={resetPassword}
             className="flex-1 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
           >
-            Edit Profile
+            Reset password
           </button>
           <button
             onClick={onLogout}

@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button';
 import { HeartIcon, ShoppingCartIcon, StarHalf } from 'lucide-react';
 import Link from 'next/link';
 import AddToCard from '@/components/AddToCard/AddToCard';
+import AddToWishList from '@/components/AddToWishList/AddToWishList';
 
 export default async function Products() {
 
@@ -61,7 +62,11 @@ const {data : products} : {data : productI[]} = await response.json();
     <p className='pt-2'> Price : <span className='font-bold'>{product.price} EGp</span></p>
   </CardContent>
     </Link>
-  <AddToCard productId = {product.id}/>
+    <CardFooter className='flex gap-1 justify-center items-center' >
+ <AddToCard productId = {product.id}/>
+ <AddToWishList productId={product.id}></AddToWishList>
+    </CardFooter>
+ 
 </Card>
   </div>)}
 </div>
